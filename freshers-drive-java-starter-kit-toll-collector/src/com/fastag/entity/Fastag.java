@@ -13,41 +13,27 @@ public class Fastag {
 		super();
 	}
 
-	
-
 	public Fastag(String vehicle_number, Integer fastag_balance) {
 		super();
 		this.vehicle_number = vehicle_number;
 		this.fastag_balance = fastag_balance;
 	}
-	
-	
-
-
 
 	public String getVehicle_number() {
 		return vehicle_number;
 	}
 
-
-
 	public void setVehicle_number(String vehicle_number) {
 		this.vehicle_number = vehicle_number;
 	}
-
-
 
 	public Integer getFastag_balance() {
 		return fastag_balance;
 	}
 
-
-
 	public void setFastag_balance(Integer fastag_balance) {
 		this.fastag_balance = fastag_balance;
 	}
-
-
 
 	@Override
 	public int hashCode() {

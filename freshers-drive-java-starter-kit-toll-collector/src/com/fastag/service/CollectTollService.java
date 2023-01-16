@@ -2,6 +2,7 @@ package com.fastag.service;
 
 import java.util.Set;
 
+import com.fastag.constants.DefaultInitializer;
 import com.fastag.constants.TollCharges;
 import com.fastag.dto.TollCollectionSummary;
 import com.fastag.dto.VehicleSummary;
@@ -19,9 +20,9 @@ public class CollectTollService {
 		//initializing variables with default values
 		Vehicle currentVehicle = null;
 		
-		Boolean returnJourney = false;
+		Boolean returnJourney = DefaultInitializer.BOOLEAN_INITIALIZER;
 		
-		Boolean existingVehicle = false;
+		Boolean existingVehicle = DefaultInitializer.BOOLEAN_INITIALIZER;
 		
 		//searching for vehicle if already available
 		for (Vehicle v : vehicles) {
@@ -62,13 +63,13 @@ public class CollectTollService {
 		//Initializing all the variables with default value
 		Fastag currentVehicleFastag = null;
 		
-		Integer total_amount_collected_via_fastag = 0; 
+		Integer total_amount_collected_via_fastag = DefaultInitializer.INTEGER_INITIALIZER; 
 		
-		Integer total_amount_collected_via_cash = 0; 
+		Integer total_amount_collected_via_cash = DefaultInitializer.INTEGER_INITIALIZER; 
 		
-		Integer flat_fee_for_cash_payment = 0;
+		Integer flat_fee_for_cash_payment = DefaultInitializer.INTEGER_INITIALIZER;
 		
-		Integer discount = 0;
+		Integer discount = DefaultInitializer.INTEGER_INITIALIZER;
 		
 		//getting all fastags available in tollCollectionSummary
 		Set<Fastag> fastags = tollCollectionSummary.getFastags();
@@ -96,7 +97,7 @@ public class CollectTollService {
 		//have to deduct the amount by cast and flat fee is added
 		if (currentVehicleFastag == null) {
 			total_amount_collected_via_cash = currentTollCharges;
-			flat_fee_for_cash_payment = 40;
+			flat_fee_for_cash_payment = TollCharges.CASHFEE;
 		}
 		//if sufficient balance is there then deducting from fastag account
 		else if(currentTollCharges <= currentVehicleFastag.getFastag_balance()) {
@@ -109,7 +110,7 @@ public class CollectTollService {
 			total_amount_collected_via_fastag = currentVehicleFastag.getFastag_balance();
 			currentVehicleFastag.setFastag_balance(0);
 			total_amount_collected_via_cash = diffAmount;
-			flat_fee_for_cash_payment = 40;
+			flat_fee_for_cash_payment = TollCharges.CASHFEE;
 		}
 		
 		//adding amounts to tollCollectionSummary account
@@ -152,26 +153,25 @@ public class CollectTollService {
 	//For getting the toll charges as per vehicle type
 	public Integer getTollCharges(String vehicle_type) {
 		
-		TollCharges tollCharges = new TollCharges();
 		
 		//initializing with default value
-		Integer currentTollCharges = 0;
+		Integer currentTollCharges = DefaultInitializer.INTEGER_INITIALIZER;
 		
 		//Assigning value as per vehicle type
 		switch(vehicle_type) {
-			case "TRUCK" : currentTollCharges = tollCharges.TRUCK;
+			case "TRUCK" : currentTollCharges = TollCharges.TRUCK;
 			break;
-			case "BUS" : currentTollCharges =  tollCharges.BUS;
+			case "BUS" : currentTollCharges =  TollCharges.BUS;
 			break;
-			case "VAN" : currentTollCharges = tollCharges.VAN;
+			case "VAN" : currentTollCharges = TollCharges.VAN;
 			break;
-			case "CAR" : currentTollCharges = tollCharges.CAR;
+			case "CAR" : currentTollCharges = TollCharges.CAR;
 			break;
-			case "RICKSHAW" : currentTollCharges = tollCharges.RICKSHAW;
+			case "RICKSHAW" : currentTollCharges = TollCharges.RICKSHAW;
 			break;
-			case "SCOOTER" : currentTollCharges = tollCharges.SCOOTER;
+			case "SCOOTER" : currentTollCharges = TollCharges.SCOOTER;
 			break;
-			case "MOTORBIKE" : currentTollCharges = tollCharges.MOTORBIKE;
+			case "MOTORBIKE" : currentTollCharges = TollCharges.MOTORBIKE;
 		}
 		
 		return currentTollCharges;
